@@ -1,6 +1,6 @@
 module Main where
 
-import Git (gitLogOneline)
+import Git.Log (gitLogOneline)
 import Turtle
 
 main :: IO ()
