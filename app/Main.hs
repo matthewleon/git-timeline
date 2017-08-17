@@ -1,4 +1,7 @@
 module Main where
 
+import Git (gitLogOneline)
+import Turtle
+
 main :: IO ()
-main = return ()
+main = view gitLogOneline
