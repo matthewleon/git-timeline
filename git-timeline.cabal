@@ -23,6 +23,7 @@ executable git-timeline
   build-depends:       base
                      , base16-bytestring
                      , bytestring
+                     , safe-exceptions
                      , turtle
                      , brick
                      , text
