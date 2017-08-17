@@ -14,21 +14,14 @@ import Turtle
 gitLogOneline :: Shell (SHA, Text)
 gitLogOneline = parseLine =<< gitLogOneline'
   where
-  parseLine :: Line -> Shell (SHA, Text)
-  parseLine =
-        lineToText
-    >>> \t ->
-      case match logPattern t of
-        [(shaText, comment)] ->
-          maybe
-          (throwText $ "Failed to parse SHA: " <> shaText)
-          (\sha -> return (sha, comment))
-          $ SHA.fromText shaText
-        _ -> throwText $ "Failed to parse log line: " <> t
+  parseLine line = case match logPattern t of
+    [(Just sha, comment)] -> pure (sha, comment)
+    _ -> liftIO . throwString
+         $ "Failed to parse log line: " <> T.unpack t
     where
+    t = lineToText line
     logPattern = (,) <$> (sha <* char ' ') <*> chars
-      where sha = plus hexDigit
-    throwText = liftIO . throwString . T.unpack
+      where sha = SHA.fromText <$> plus hexDigit
 
 gitLogOneline' :: Shell Line
 gitLogOneline' = gitLog [Oneline]

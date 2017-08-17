@@ -20,7 +20,6 @@ toText :: SHA -> Text
 toText (SHA bs) = decodeUtf8 $ B16.encode bs
 
 fromText :: Text -> Maybe SHA
-fromText t =
-    case B16.decode $ encodeUtf8 t of
-        (bs, "") -> Just $ SHA bs
-        _        -> Nothing
+fromText t = case B16.decode $ encodeUtf8 t of
+  (bs, "") -> Just $ SHA bs
+  _        -> Nothing
