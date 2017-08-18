@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Git.Log (gitLogOneline) where
+module Git.Log (logOneline) where
 
 import Control.Arrow ((>>>))
 import Control.Exception.Safe (throwString)
@@ -11,8 +11,8 @@ import Git.Types.SHA (SHA)
 import qualified Git.Types.SHA as SHA
 import Turtle
 
-gitLogOneline :: Shell (SHA, Text)
-gitLogOneline = parseLine =<< gitLogOneline'
+logOneline :: Shell (SHA, Text)
+logOneline = parseLine =<< logOneline'
   where
   parseLine line = case match logPattern t of
     [(Just sha, comment)] -> pure (sha, comment)
@@ -23,8 +23,8 @@ gitLogOneline = parseLine =<< gitLogOneline'
     logPattern = (,) <$> (sha <* char ' ') <*> chars
       where sha = SHA.fromText <$> plus hexDigit
 
-gitLogOneline' :: Shell Line
-gitLogOneline' = gitLog [Oneline]
+logOneline' :: Shell Line
+logOneline' = gitLog [Oneline]
 
 data LogFlag = Oneline
   deriving (Show)

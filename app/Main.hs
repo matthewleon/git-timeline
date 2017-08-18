@@ -1,7 +1,7 @@
 module Main where
 
-import Git.Log (gitLogOneline)
+import Git.Log (logOneline)
 import Turtle
 
 main :: IO ()
-main = view gitLogOneline
+main = view logOneline
