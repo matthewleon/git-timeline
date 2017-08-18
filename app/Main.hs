@@ -1,7 +1,7 @@
 module Main where
 
-import Git.Log (logOneline)
+import Git.Diff (diffStat)
 import Turtle
 
 main :: IO ()
-main = view logOneline
+main = view diffStat

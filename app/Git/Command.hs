@@ -12,7 +12,7 @@ import qualified Data.Text as T
 import Turtle
 import Prelude hiding (FilePath)
 
-data Subcommand = Log
+data Subcommand = Log | Diff
   deriving (Show)
 
 lowerTextShow :: Show a => a -> Text
